@@ -51,6 +51,8 @@ HTML_TEMPLATE = """
             min-height: 100vh;
             color: var(--text-color);
             transition: background 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
         }
         .skip-link {
             position: absolute;
@@ -65,6 +67,30 @@ HTML_TEMPLATE = """
         .skip-link:focus {
             top: 6px;
         }
+        header {
+            background: var(--container-bg);
+            padding: 20px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+            color: var(--accent-color);
+        }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--button-bg);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -73,6 +99,7 @@ HTML_TEMPLATE = """
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: background 0.3s;
+            flex: 1;
         }
         h1 {
             color: var(--accent-color);
@@ -143,9 +170,7 @@ HTML_TEMPLATE = """
             color: white;
         }
         .product-card {
-            display: inline-block;
             width: 30%;
-            margin: 1%;
             background: var(--card-bg);
             border-radius: 10px;
             padding: 15px;
@@ -205,13 +230,43 @@ HTML_TEMPLATE = """
             white-space: nowrap;
             border: 0;
         }
+        footer {
+            background: var(--container-bg);
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            transition: background 0.3s, color 0.3s;
+        }
+        footer a:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1%;
+        }
     </style>
 </head>
 <body>
     <a href="#results" class="skip-link">Перейти к результатам</a>
-    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
-    <div class="container">
+    <header>
         <h1>🛒 Помощник по покупкам</h1>
+        <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
+    </header>
+    <main>
+    <div class="container">
         <p>Опишите товар, прикрепите фото или запишите голос, и получите предложения с маркетплейсов!</p>
         
         <form method="POST" enctype="multipart/form-data" role="search">
@@ -247,18 +302,18 @@ HTML_TEMPLATE = """
             {% if products %}
             <section class="results" aria-labelledby="results-heading">
                 <h2 id="results-heading">📦 Найденные товары</h2>
+                <div class="product-grid">
                 {% for product in products %}
                 <article class="product-card" role="article">
-                    <header>
                         <img src="{{ product.image }}" alt="Изображение товара {{ product.name }}">
                         <h3>{{ product.name }}</h3>
-                    </header>
                     <p class="price">{{ product.price }} руб.</p>
                     <p class="source">Источник: {{ product.source }}</p>
                     <p class="reason">{{ product.reason }}</p>
                     <button class="buy-btn" aria-label="Купить {{ product.name }}">Купить</button>
                 </article>
                 {% endfor %}
+                </div>
             </section>
             {% endif %}
             
@@ -348,6 +403,14 @@ HTML_TEMPLATE = """
             }
         });
     </script>
+    </body>
+    <footer>
+    <ul>
+    <li><a href="https://t.me/kirshmelev" target="_blank" rel="noopener">👤 Автор: @kirshmelev</a></li>
+    <li><a href="https://github.com/kirshmelev/megaschool" target="_blank" rel="noopener">📂 Репозиторий на GitHub</a></li>
+    </ul>
+    <p>Сделано с ❤️ для Мегашколы ИТМО</p>
+    </footer>
 </body>
 </html>
 """
