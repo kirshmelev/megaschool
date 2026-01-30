@@ -1,0 +1,8 @@
+# requests==2.31.0
+# beautifulsoup4==4.12.2
+# openai==1.3.0
+# python-dotenv==1.0.0
+# wb-api==0.1.0  # Assuming this exists for Wildberries
+# ozon-api==0.1.0  # Assuming for Ozon
+# selenium==4.15.2
+flask==3.0.0
